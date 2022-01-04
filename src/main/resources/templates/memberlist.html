@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 리스트</title>
+</head>
+<body>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">회원 ID</th>
+                    <th scope="col">회원 등급</th>
+                    <th scope="col">회원 이름</th>
+                    <th scope="col">등록 종목</th>
+                    <th scope="col">신청 날짜</th>
+                    <th scope="col">종료 날짜</th>
+                    <th scope="col">잔여 일자</th>
+                    <th scope="col">가격</th>
+                    <th scope="col">핸드폰 번호</th>
+                    <th scope="col">주소</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr scope="row" th:each="member : ${list}">
+                    <th th:text="${member.getId()}">ID 1번</th>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
