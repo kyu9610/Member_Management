@@ -46,8 +46,23 @@ public class MemberService {
 
         member.setStart_day(ex_member.getStart_day());
         member.setEnd_day(ex_member.getStart_day().plusDays(member.getD_day()));
+        member = setGradePrice(member);
 
         memberRepository.save(member); // 저장
+    }
+
+
+    // 회원 기간연장 추가
+    public void extension(int plusDate){
+        List<Member> members = memberRepository.findAll();
+        for(Member member : members){
+            int day; // 잔여일자 변수
+            day = member.getD_day() + plusDate;
+            member.setD_day(day);
+            member.setEnd_day(member.getStart_day().plusDays(member.getD_day()));
+
+            memberRepository.save(member);
+        }
     }
 
 
@@ -63,6 +78,7 @@ public class MemberService {
         }
         return members;
     }
+
 
     // 회원리스트 등급별 관리
     public Member setGradePrice(Member member){

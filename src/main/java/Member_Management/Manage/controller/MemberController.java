@@ -68,4 +68,17 @@ public class MemberController {
         memberService.delete(id);
         return "redirect:/member/list";
     }
+
+    // 회원 잔여기한 연장
+    @GetMapping("/member/extension")
+    public String memberExtension(){
+        return "extension";
+    }
+
+    // 회원 잔여기한 연장처리
+    @PostMapping("/member/extensionPro")
+    public String memberExtensionPro(int plusDate){
+        memberService.extension(plusDate);
+        return "redirect:/member/list";
+    }
 }
