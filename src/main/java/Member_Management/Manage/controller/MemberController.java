@@ -36,4 +36,12 @@ public class MemberController {
 
         return "redirect:/member/list";
     }
+
+    // 특정 회원정보 출력
+    @GetMapping("/member/view")
+    public String memberView(Long id, Model model){
+        model.addAttribute("member",memberService.findById(id));
+
+        return "memberview";
+    }
 }
