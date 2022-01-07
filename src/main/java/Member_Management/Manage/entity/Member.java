@@ -2,11 +2,11 @@ package Member_Management.Manage.entity;
 
 
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -21,9 +21,12 @@ public class Member {
 
     private String type; // 등록종목
 
-    private String start_day; // 신청날짜
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @CreatedDate
+    private LocalDate start_day; // 신청날짜
 
-    private String end_day; // 종료날짜
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    private LocalDate end_day; // 종료날짜
 
     private int d_day; // 잔여일자
 
@@ -32,6 +35,7 @@ public class Member {
     private String phone_number; // 핸드폰번호
 
     private String address; // 주소
+
 }
 
 
