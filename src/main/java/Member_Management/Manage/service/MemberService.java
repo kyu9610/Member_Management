@@ -17,10 +17,10 @@ public class MemberService {
 
     // 회원정보 작성 및 저장
     public void write(Member member){
-        // 회원의 신청날짜 , 종료날짜 계산
+        // 회원의 신청날짜 , 종료날짜 , 등급별가격 계산
         member.setStart_day(LocalDate.now());
         member.setEnd_day(member.getStart_day().plusDays(member.getD_day()));
-        setGradePrice(member);
+        member = setGradePrice(member);
         memberRepository.save(member);
     }
 
@@ -36,9 +36,18 @@ public class MemberService {
         return memberRepository.findById(id).get();
     }
 
-    // 특정 게시글 삭제
+    // 특정 회원정보 삭제
     public void delete(Long id){
         memberRepository.delete(memberRepository.findById(id).get());
+    }
+
+    // 특정 회원정보 수정
+    public void update(Member ex_member, Member member){
+
+        member.setStart_day(ex_member.getStart_day());
+        member.setEnd_day(ex_member.getStart_day().plusDays(member.getD_day()));
+
+        memberRepository.save(member); // 저장
     }
 
 
@@ -56,7 +65,7 @@ public class MemberService {
     }
 
     // 회원리스트 등급별 관리
-    public void setGradePrice(Member member){
+    public Member setGradePrice(Member member){
         String memberGrade = member.getGrade(); // 멤버의 등급을 받아오는 변수 생성
         double discount = 0; // 할인가격
 
@@ -80,7 +89,7 @@ public class MemberService {
             case "골드":
                 discount = member.getPrice() * 0.9;
                 break;
-            case "플레티넘":
+            case "플래티넘":
                 discount = member.getPrice() * 0.85;
                 break;
             case "다이아":
@@ -88,5 +97,7 @@ public class MemberService {
                 break;
         }
         member.setPrice((int)discount); // 등급별로 가격설정
+
+        return member;
     }
 }

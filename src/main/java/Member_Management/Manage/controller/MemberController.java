@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -43,5 +44,28 @@ public class MemberController {
         model.addAttribute("member",memberService.findById(id));
 
         return "memberview";
+    }
+
+    // 특정 회원정보 수정
+    @GetMapping("/member/modify/{id}")
+    public String memberModify(@PathVariable("id") Long id, Model model){
+        model.addAttribute("member",memberService.findById(id));
+
+        return "membermodify";
+    }
+
+    // 특정 회원정보 수정처리
+    @PostMapping("/member/update/{id}")
+    public String memberUpdate(@PathVariable("id") Long id, Member member){
+        Member ex_member = memberService.findById(id);
+        memberService.update(ex_member,member);
+        return "redirect:/member/list";
+    }
+
+    // 특정 회원정보 삭제
+    @GetMapping("/member/delete")
+    public String memberDelete(Long id){
+        memberService.delete(id);
+        return "redirect:/member/list";
     }
 }
