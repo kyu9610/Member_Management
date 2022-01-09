@@ -16,6 +16,12 @@ import java.util.List;
 public class MemberController {
     private final MemberService memberService;
 
+    // 기본화면 출력
+    @GetMapping("/")
+    public String index(){
+        return "redirect:/member/list";
+    }
+
     // 회원리스트 출력
     @GetMapping("/member/list")
     public String memberList(Model model){
